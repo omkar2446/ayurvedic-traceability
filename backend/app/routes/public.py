@@ -56,17 +56,17 @@ def verify_identifier(
         CustodyTransfer.batch_id == batch.batch_id,
         CustodyTransfer.status == "ACCEPTED"
     ).order_by(CustodyTransfer.created_at.asc()).all()
-    transfers = [{"id": t.id, "quantity": t.quantity, "date": t.updated_at} for t in transfers_db]
+    transfers = [{"id": t.id, "quantity": t.quantity, "date": t.updated_at or t.created_at} for t in transfers_db]
 
     processing_db = db.query(ProcessingRecord).filter(
         ProcessingRecord.batch_id == batch.batch_id
     ).order_by(ProcessingRecord.created_at.asc()).all()
-    processing = [{"id": p.id, "input": p.input_quantity, "output": p.output_quantity, "date": p.processing_date} for p in processing_db]
+    processing = [{"id": p.id, "input": p.input_quantity, "output": p.output_quantity, "date": p.processing_date or p.created_at} for p in processing_db]
 
     lab_reports_db = db.query(LabReport).filter(
         LabReport.batch_id == batch.batch_id
     ).order_by(LabReport.created_at.asc()).all()
-    lab_reports = [{"certificate_id": l.certificate_id, "result": l.result, "date": l.test_date} for l in lab_reports_db]
+    lab_reports = [{"certificate_id": l.certificate_id, "result": l.result, "date": l.test_date or l.created_at} for l in lab_reports_db]
 
     return {
         "product_id": product.product_id if product else batch.batch_id,
@@ -76,7 +76,7 @@ def verify_identifier(
         "batch_id": batch.batch_id,
         "herb_name": batch.herb_name,
         "collection_location": batch.collection_location,
-        "collection_date": batch.collection_date,
+        "collection_date": batch.collection_date or batch.created_at,
         "transfers": transfers,
         "processing": processing,
         "lab_reports": lab_reports

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import { authService, batchService, custodyService, laboratoryService, processingService, productService, userService } from './services/api';
+import { formatDateTime } from './utils/formatters';
 
 const roleLabels = {
     ADMIN: 'Administrator',
@@ -128,6 +129,7 @@ export function IncomingTransfers() {
                                 <th>Batch ID</th>
                                 <th>From User</th>
                                 <th>Quantity</th>
+                                <th>Date & Time</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -138,6 +140,7 @@ export function IncomingTransfers() {
                                     <td><strong>{t.batch_id}</strong></td>
                                     <td>User #{t.from_user_id}</td>
                                     <td>{t.quantity}</td>
+                                    <td>{formatDateTime(t.created_at || t.updated_at)}</td>
                                     <td>
                                         <button className="button button-dark" style={{ marginRight: '8px' }} onClick={() => action(t.id, 'accept')}>Accept</button>
                                         <button className="button button-outline" onClick={() => action(t.id, 'reject')}>Reject</button>
@@ -230,10 +233,11 @@ export function ProcessBatch() {
             {batch && (
                 <div className="panel" style={{ marginBottom: '20px', padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
                     <p className="eyebrow" style={{ marginBottom: '8px' }}>BATCH DETAILS</p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', fontSize: '0.9rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', fontSize: '0.9rem' }}>
                         <div><strong>Herb:</strong> {batch.herb_name} ({batch.scientific_name})</div>
                         <div><strong>Available Quantity:</strong> <span style={{ color: '#4ade80', fontWeight: 'bold' }}>{batch.quantity} {batch.unit}</span></div>
                         <div><strong>Origin:</strong> {batch.collection_location}</div>
+                        <div><strong>Collection Date & Time:</strong> {formatDateTime(batch.collection_date)}</div>
                         <div><strong>Status:</strong> {batch.status}</div>
                     </div>
                 </div>
@@ -371,6 +375,7 @@ export function CreateProduct() {
                     <p className="eyebrow">PRODUCT CREATED & BARCODE / QR GENERATED</p>
                     <h1>{product.product_id}</h1>
                     <p><strong>{product.name}</strong></p>
+                    <p className="muted">Manufactured Date & Time: <strong>{formatDateTime(product.created_at)}</strong></p>
                     <p className="muted">Public verification URL: <a href={verifyUrl} target="_blank" rel="noreferrer">{verifyUrl}</a></p>
 
                     <div style={{ marginTop: '20px', display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -455,10 +460,11 @@ export function CreateProduct() {
                 {selectedBatch && (
                     <div className="info-panel" style={{ marginTop: '16px', padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
                         <p className="eyebrow" style={{ marginBottom: '8px' }}>SELECTED BATCH PROVENANCE</p>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '12px', fontSize: '0.9rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', fontSize: '0.9rem' }}>
                             <div><strong>Herb:</strong> {selectedBatch.herb_name}</div>
                             <div><strong>Scientific:</strong> {selectedBatch.scientific_name}</div>
                             <div><strong>Location:</strong> {selectedBatch.collection_location}</div>
+                            <div><strong>Collection Date & Time:</strong> {formatDateTime(selectedBatch.collection_date)}</div>
                             <div><strong>Available:</strong> {selectedBatch.quantity} {selectedBatch.unit}</div>
                             <div><strong>Status:</strong> {selectedBatch.status}</div>
                         </div>
@@ -516,10 +522,11 @@ export function TransferBatch() {
             {batch && (
                 <div className="panel" style={{ marginBottom: '20px', padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
                     <p className="eyebrow" style={{ marginBottom: '8px' }}>BATCH INFORMATION</p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', fontSize: '0.9rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', fontSize: '0.9rem' }}>
                         <div><strong>Herb:</strong> {batch.herb_name} ({batch.scientific_name})</div>
                         <div><strong>Quantity:</strong> {batch.quantity} {batch.unit}</div>
                         <div><strong>Origin:</strong> {batch.collection_location}</div>
+                        <div><strong>Collection Date & Time:</strong> {formatDateTime(batch.collection_date)}</div>
                         <div><strong>Status:</strong> {batch.status}</div>
                     </div>
                 </div>
@@ -599,7 +606,8 @@ export function ProductsCatalog() {
                         return (
                             <div key={p.product_id} className="panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '24px', position: 'relative' }}>
                                 <span className="eyebrow" style={{ fontSize: '0.75rem', marginBottom: '4px' }}>{p.product_id}</span>
-                                <h3 style={{ margin: '0 0 8px 0', fontSize: '1.1rem' }}>{p.name}</h3>
+                                <h3 style={{ margin: '0 0 4px 0', fontSize: '1.1rem' }}>{p.name}</h3>
+                                <small style={{ color: '#4ade80', fontSize: '0.75rem', marginBottom: '8px' }}>Created: {formatDateTime(p.created_at)}</small>
                                 <p style={{ fontSize: '0.85rem', color: '#a0a0a0', marginBottom: '16px', flex: 1 }}>{p.description}</p>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center', width: '100%', marginBottom: '16px' }}>
@@ -649,3 +657,4 @@ export function ProductsCatalog() {
         </Shell>
     );
 }
+

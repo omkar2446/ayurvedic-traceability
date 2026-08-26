@@ -110,6 +110,9 @@ class BatchResponse(BaseModel):
     current_holder_id: Optional[int] = None
     status: str
     recall_status: str
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
 
 
 class OrganizationCreate(BaseModel):
