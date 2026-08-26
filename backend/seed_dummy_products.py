@@ -17,21 +17,22 @@ def seed_demo_data():
     try:
         print("🌱 Seeding Users...")
         users_data = [
-            {"username": "collector1", "email": "collector@vanatrace.org", "full_name": "Ramesh Kumar (Wild Harvester)", "role": "COLLECTOR"},
-            {"username": "aggregator1", "email": "aggregator@vanatrace.org", "full_name": "Kerala Herbal Co-op", "role": "AGGREGATOR"},
-            {"username": "processor1", "email": "processor@vanatrace.org", "full_name": "BioExtract Phytochemicals", "role": "PROCESSOR"},
-            {"username": "lab1", "email": "lab@vanatrace.org", "full_name": "Ayush Certified Testing Lab", "role": "LABORATORY"},
-            {"username": "manufacturer1", "email": "manufacturer@vanatrace.org", "full_name": "VedaLife Remedies Ltd", "role": "MANUFACTURER"},
+            {"username": "admin", "email": "otambe655@gmail.com", "full_name": "System Administrator", "role": "ADMIN", "password": "bahuli@2446"},
+            {"username": "collector1", "email": "collector@vanatrace.org", "full_name": "Ramesh Kumar (Wild Harvester)", "role": "COLLECTOR", "password": "Password123!"},
+            {"username": "aggregator1", "email": "aggregator@vanatrace.org", "full_name": "Kerala Herbal Co-op", "role": "AGGREGATOR", "password": "Password123!"},
+            {"username": "processor1", "email": "processor@vanatrace.org", "full_name": "BioExtract Phytochemicals", "role": "PROCESSOR", "password": "Password123!"},
+            {"username": "lab1", "email": "lab@vanatrace.org", "full_name": "Ayush Certified Testing Lab", "role": "LABORATORY", "password": "Password123!"},
+            {"username": "manufacturer1", "email": "manufacturer@vanatrace.org", "full_name": "VedaLife Remedies Ltd", "role": "MANUFACTURER", "password": "Password123!"},
         ]
 
         user_instances = {}
         for ud in users_data:
-            user = db.query(User).filter(User.username == ud["username"]).first()
+            user = db.query(User).filter((User.username == ud["username"]) | (User.email == ud["email"])).first()
             if not user:
                 user = User(
                     username=ud["username"],
                     email=ud["email"],
-                    password_hash=hash_password("Password123!"),
+                    password_hash=hash_password(ud["password"]),
                     full_name=ud["full_name"],
                     role=ud["role"],
                     is_active=True,
@@ -39,6 +40,11 @@ def seed_demo_data():
                 )
                 db.add(user)
                 db.flush()
+            else:
+                user.email = ud["email"]
+                user.password_hash = hash_password(ud["password"])
+                user.is_active = True
+                user.is_approved = True
             user_instances[ud["role"]] = user
 
         db.commit()

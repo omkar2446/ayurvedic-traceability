@@ -17,8 +17,8 @@ from app.models import User
 Base.metadata.create_all(bind=engine)
 
 username = os.getenv("DEV_ADMIN_USERNAME", "admin")
-email = os.getenv("DEV_ADMIN_EMAIL", "admin@example.com")
-password = os.getenv("DEV_ADMIN_PASSWORD", "ChangeMe123!")
+email = os.getenv("DEV_ADMIN_EMAIL", "otambe655@gmail.com")
+password = os.getenv("DEV_ADMIN_PASSWORD", "bahuli@2446")
 full_name = os.getenv("DEV_ADMIN_FULL_NAME", "Development Administrator")
 
 db = SessionLocal()
