@@ -90,7 +90,6 @@ function VerifyResult() {
 				{events.map((event, index) => (
 					<motion.button
 						initial={{ opacity: 0, y: 12 }}
-						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: index * 0.08 }}
 						className={`journey-stage ${event.subtitle === 'FAILED' ? 'stage-failed' : ''}`}
 						key={index}
@@ -179,7 +178,6 @@ function CollectorBatchCreate() {
 				quantity: Number(form.quantity),
 				unit: form.unit,
 				collection_date: new Date(form.collection_date).toISOString(),
-				collection_location: form.collection_location,
 				latitude: form.latitude !== '' && form.latitude !== null ? Number(form.latitude) : null,
 				longitude: form.longitude !== '' && form.longitude !== null ? Number(form.longitude) : null,
 				notes: form.notes || null
@@ -319,7 +317,7 @@ function Dashboard() {
 			<div className="workspace-head">
 				<div>
 					<p className="eyebrow">{roleLabels[role] || 'PARTNER'} WORKSPACE</p>
-					<h1>Good morning, {session?.full_name?.split(' ')[0] || 'partner'}.</h1>
+					<h1>Welcome back, {session?.full_name?.split(' ')[0] || 'partner'}.</h1>
 					<p className="muted">Your {roleLabels[role]?.toLowerCase() || 'traceability'} work, in one place.</p>
 				</div>
 				<div style={{ display: 'flex', gap: '8px' }}>
@@ -378,7 +376,7 @@ function BatchesList() {
 					<h1>My Batches</h1>
 				</div>
 			</div>
-			<div className="panel">
+			<div className="panel table-panel inventory-panel">
 				<table style={{width: '100%', textAlign: 'left'}}>
 					<thead>
 						<tr>

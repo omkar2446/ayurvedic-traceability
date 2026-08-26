@@ -334,6 +334,11 @@ a {
   font-weight: 700;
 }
 
+.hero-links span {
+  color: var(--orange);
+  font-weight: 700;
+}
+
 .hero-visual {
   min-height: 470px;
   position: relative;
