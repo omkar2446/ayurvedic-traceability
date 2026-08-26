@@ -1,5 +1,6 @@
 import os
 import sys
+import hashlib
 from datetime import datetime, timedelta
 
 # Add backend directory to sys.path
@@ -291,8 +292,8 @@ def seed_demo_data():
             if not lab:
                 db.add(LabReport(
                     batch_id=d["batch_id"],
-                    lab_user_id=user_instances["LABORATORY"].id,
                     certificate_id=d["cert_id"],
+                    report_hash="0x" + hashlib.sha256(d["cert_id"].encode()).hexdigest(),
                     result="PASSED",
                     test_date=now - timedelta(days=12 - i),
                     report_url="https://vanatrace.org/certificates/" + d["cert_id"],

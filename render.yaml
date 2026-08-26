@@ -9,7 +9,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: DATABASE_URL
-        value: sqlite:///./ayurvedic_traceability.db
+        value: postgresql://new_9q20_user:x69YfFjuVDuFUY86Uyy92m2Oro2dLBWB@dpg-da7jjfm1egvs739rvbrg-a/new_9q20
       - key: BACKEND_CORS_ORIGINS
         value: "*"
       - key: JWT_SECRET

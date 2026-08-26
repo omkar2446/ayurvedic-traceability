@@ -1,7 +1,17 @@
 import axios from 'axios'
 
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL
+  }
+  if (import.meta.env.DEV || (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))) {
+    return 'http://localhost:8000/api'
+  }
+  return 'https://ayurvedic-traceability-1.onrender.com/api'
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://ayurvedic-traceability-1.onrender.com/api',
+  baseURL: getApiBaseUrl(),
 })
 
 api.interceptors.request.use((config) => {

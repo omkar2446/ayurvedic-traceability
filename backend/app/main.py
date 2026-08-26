@@ -55,15 +55,15 @@ app.include_router(users_router)
 
 
 @app.on_event("startup")
-def initialize_development_database() -> None:
+def initialize_database() -> None:
+    Base.metadata.create_all(bind=engine)
     if settings.database_url.startswith("sqlite"):
-        Base.metadata.create_all(bind=engine)
         _migrate_development_sqlite()
-        try:
-            from seed_dummy_products import seed_demo_data
-            seed_demo_data()
-        except Exception as e:
-            print("Auto-seed info:", e)
+    try:
+        from seed_dummy_products import seed_demo_data
+        seed_demo_data()
+    except Exception as e:
+        print("Auto-seed info:", e)
 
 
 def _migrate_development_sqlite() -> None:
