@@ -74,6 +74,17 @@ def _migrate_development_sqlite() -> None:
             connection.execute(text("ALTER TABLE herb_batches ADD COLUMN current_holder_id INTEGER"))
 
 
+@app.get("/", include_in_schema=False)
+@app.head("/", include_in_schema=False)
+def root_endpoint() -> dict[str, str]:
+    return {
+        "status": "online",
+        "service": "VanaTrace Ayurvedic Supply Chain Intelligence API",
+        "docs": "/docs",
+        "health": "/api/health"
+    }
+
+
 @app.get("/api/health", tags=["health"])
 def health_check() -> dict[str, str]:
     database_status = "healthy"
@@ -93,3 +104,4 @@ def health_check() -> dict[str, str]:
 @app.get("/health", include_in_schema=False)
 def legacy_health_check() -> dict[str, str]:
     return health_check()
+

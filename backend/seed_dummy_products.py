@@ -271,15 +271,19 @@ def seed_demo_data():
             # 3. Processing Record
             proc = db.query(ProcessingRecord).filter(ProcessingRecord.batch_id == d["batch_id"]).first()
             if not proc:
+                in_qty = d["quantity"]
+                out_qty = round(d["quantity"] * 0.82, 2)
+                loss_qty = round(in_qty - out_qty, 2)
                 db.add(ProcessingRecord(
                     batch_id=d["batch_id"],
                     processor_id=user_instances["PROCESSOR"].id,
-                    process_type=d["process_type"],
-                    input_quantity=d["quantity"],
-                    output_quantity=round(d["quantity"] * 0.82, 2),
+                    processing_details=d["process_type"],
+                    input_quantity=in_qty,
+                    output_quantity=out_qty,
+                    loss_quantity=loss_qty,
+                    processing_location="BioExtract Phytochemicals Plant #1",
                     processing_date=now - timedelta(days=15 - i),
-                    facility_location="BioExtract Phytochemicals Plant #1",
-                    notes=f"Processed via {d['process_type']}. High quality yield recorded."
+                    status="COMPLETED"
                 ))
 
             # 4. Lab Report
