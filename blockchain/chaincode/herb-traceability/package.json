@@ -1,0 +1,17 @@
+{
+  "name": "herb-traceability-chaincode",
+  "version": "0.1.0",
+  "description": "Hyperledger Fabric chaincode project for Ayurvedic herb traceability",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "load-check": "node -e \"const { HerbTraceabilityContract } = require('./lib/herbContract'); if (typeof HerbTraceabilityContract !== 'function') process.exit(1); console.log('HerbTraceabilityContract loaded');\""
+  },
+  "dependencies": {
+    "fabric-contract-api": "^2.5.6",
+    "fabric-shim": "^2.5.6"
+  }
+}

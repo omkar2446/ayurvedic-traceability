@@ -1,0 +1,32 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.local
+
+# Node
+node_modules/
+dist/
+build/
+.npm/
+
+# Database
+postgres-data/
+
+# Fabric / chaincode
+fabric-ca/
+organizations/
+channel-artifacts/
+configtx/
+
+# Runtime
+*.log
