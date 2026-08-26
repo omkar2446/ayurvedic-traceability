@@ -10,6 +10,8 @@ services:
         value: 3.11.9
       - key: DATABASE_URL
         value: sqlite:///./ayurvedic_traceability.db
+      - key: BACKEND_CORS_ORIGINS
+        value: "*"
       - key: JWT_SECRET
         generateValue: true
 
@@ -19,3 +21,7 @@ services:
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://ayurvedic-traceability-1.onrender.com/api
+
