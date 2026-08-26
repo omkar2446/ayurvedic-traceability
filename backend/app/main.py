@@ -1,4 +1,10 @@
 
+import os
+import sys
+
+# Ensure backend root directory is in sys.path for Render deployment
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import inspect, text
