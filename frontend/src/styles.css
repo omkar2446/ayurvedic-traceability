@@ -448,6 +448,59 @@ a {
   margin: 7px 0 0;
 }
 
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 25px 10vw 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: #778177;
+  font-size: 12px;
+}
+
+.site-footer p { margin: 8px 0 0; }
+.site-footer strong { color: var(--ink); }
+
+.footer-kicker {
+  color: var(--orange);
+  font: 11px 'DM Mono', monospace;
+  letter-spacing: 1.5px;
+}
+
+.social-links { display: flex; align-items: center; gap: 10px; }
+
+.social-links a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #c8d1c3;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--moss);
+  transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.social-links svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social-links .social-dot { fill: currentColor; stroke: none; }
+
 .auth-page {
   min-height: 100vh;
   display: grid;
@@ -958,6 +1011,8 @@ a {
     padding: 28px 7vw;
     gap: 20px;
   }
+
+  .site-footer { padding: 24px 7vw 28px; }
 
   .result-grid,
   .workspace-grid,
@@ -1603,6 +1658,12 @@ a {
 
   .principles {
     padding: 26px 20px;
+  }
+
+  .site-footer {
+    padding: 24px 20px 28px;
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .auth-page {
