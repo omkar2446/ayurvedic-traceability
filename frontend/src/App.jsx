@@ -250,18 +250,20 @@ function CollectorBatchCreate() {
 	);
 }
 
-function Dashboard() { 
-	const role = session?.role; 
+function Dashboard() {
+	const session = authService.session();
+	const role = session?.role;
 	const [metrics, setMetrics] = useState({
 		batches: null,
 		incoming: null,
 		history: null,
 		products: null,
+		loading: true,
 	});
 
 	useEffect(() => {
 		let isMounted = true;
-		Promise.all([
+		Promise.allSettled([
 			batchService.list().then(res => res.data || []),
 			custodyService.listIncoming().then(res => res.data || []),
 			custodyService.listHistory().then(res => res.data || []),
