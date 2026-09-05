@@ -71,7 +71,7 @@ export function Shell({ children }) {
             <header className="shell-head">
                 <Link className="brand" to="/dashboard">
                     <span className="brand-mark">✦</span>
-                    <span>Vana<span className="brand-accent">Trace</span></span>
+                    <span>Med<span className="brand-accent">guard</span></span>
                 </Link>
                 <nav className="shell-nav" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                     <Link to="/dashboard">Workspace</Link>

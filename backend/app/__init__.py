@@ -1,1 +1,1 @@
-"""Ayurvedic traceability backend package."""
+"""Medguard backend package."""

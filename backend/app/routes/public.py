@@ -71,7 +71,7 @@ def verify_identifier(
     return {
         "product_id": product.product_id if product else batch.batch_id,
         "product_name": product.name if product else f"{batch.herb_name} Organic Batch",
-        "manufacturer_name": "VanaTrace Certified Partner",
+        "manufacturer_name": "Medguard Certified Partner",
         "manufacturing_date": product.created_at if product else batch.created_at,
         "batch_id": batch.batch_id,
         "herb_name": batch.herb_name,

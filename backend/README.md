@@ -1,4 +1,4 @@
-# Ayurvedic Traceability Backend
+# Medguard Backend
 
 Phase 1 provides the FastAPI application, PostgreSQL connection configuration, and infrastructure health endpoint. Authentication, models, migrations, and Fabric transactions are added in later phases.
 

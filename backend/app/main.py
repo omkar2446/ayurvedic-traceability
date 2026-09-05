@@ -79,7 +79,7 @@ def _migrate_development_sqlite() -> None:
 def root_endpoint() -> dict[str, str]:
     return {
         "status": "online",
-        "service": "VanaTrace Ayurvedic Supply Chain Intelligence API",
+        "service": "Medguard Medical Supply Chain Intelligence API",
         "docs": "/docs",
         "health": "/api/health"
     }

@@ -3,10 +3,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_name: str = "ayurvedic-traceability"
+    app_name: str = "medguard"
     app_env: str = "development"
-    database_url: str = "sqlite:///./ayurvedic_traceability.db"
-    postgres_db: str = "ayurvedic_traceability"
+    database_url: str = "sqlite:///./medguard.db"
+    postgres_db: str = "medguard"
     postgres_user: str = "postgres"
     postgres_password: str = "postgres"
     postgres_host: str = "localhost"
